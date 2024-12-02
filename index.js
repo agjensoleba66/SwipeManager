@@ -7,7 +7,7 @@ const context = getContext();
  */
 
  // === 1. Закрепление свайпов ===
-pinCurrentSwipe = function(messageElement) {
+const pinCurrentSwipe = function(messageElement) {
     const mesId = Number(messageElement.closest(".mes").getAttribute("mesid"));
     const currentMessage = chat[mesId];
     if (!currentMessage) {
@@ -51,7 +51,7 @@ pinCurrentSwipe = function(messageElement) {
 
 
 // Глобальная функция для обработки кликов вне меню
-handleOutsideClick = function(event) {
+const handleOutsideClick = function(event) {
     const menuContainer = document.querySelector('.pinned-swipes-menu');
     if (!menuContainer) return;
 
@@ -475,7 +475,7 @@ let promptSettings = {
     finalPrompt: '',
 };
 
-closePinnedSwipesMenu = function() {
+const closePinnedSwipesMenu = function() {
     const menu = document.querySelector('.pinned-swipes-menu');
     if (menu) {
         menu.style.opacity = '0'; // Анимация исчезновения
@@ -490,7 +490,7 @@ closePinnedSwipesMenu = function() {
 
 
 
-goToPinnedSwipe = function(swipeId) {
+const goToPinnedSwipe = function(swipeId) {
     const lastMessage = chat[chat.length - 1];
     if (!lastMessage || !lastMessage.swipes) return;
 
@@ -502,7 +502,7 @@ goToPinnedSwipe = function(swipeId) {
     closePinnedSwipesMenu();
 };
 
-removePinnedSwipe = function(swipeId) {
+const removePinnedSwipe = function(swipeId) {
     const lastMessage = chat[chat.length - 1];
     if (!lastMessage || !lastMessage.pinnedSwipes) return;
 
@@ -569,7 +569,7 @@ function sendSelectedSwipes(selectedSwipes) {
 }
 
 // === 3. Уведомления ===
-showNotification = function(message, type = 'info') {
+const showNotification = function(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.style.position = 'fixed';
