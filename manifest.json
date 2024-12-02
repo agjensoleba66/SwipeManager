@@ -1,0 +1,12 @@
+{
+    "display_name": "Swipe manager",
+    "loading_order": 1,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "Agjonsoleba",
+    "version": "1.0.0",
+    "homePage": "https://github.com/your/plugin",
+    "auto_update": true
+}

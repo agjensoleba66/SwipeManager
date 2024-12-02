@@ -1,0 +1,125 @@
+/* Скрываем лишние элементы в меню закреплённых свайпов */
+.pinned-swipes-menu .tokenCounterDisplay,
+.pinned-swipes-menu .mesIDDisplay,
+.pinned-swipes-menu .mes_timer,
+.pinned-swipes-menu .mes_button.extraMesButtonsHint,
+.pinned-swipes-menu .mes_button.mes_edit {
+    display: none !important;;
+}
+
+.pinned-swipes-menu .swipe-container {
+    display: flex;
+    align-items: flex-start;
+	margin-bottom: 15px;
+    margin-left: -10px; /* Сдвигаем весь контейнер свайпов чуть влево */
+}
+
+.pinned-swipes-menu .swipe-container .mesAvatarWrapper {
+    margin-right: 10px; /* Корректируем расстояние между аватаркой и текстом */
+}
+
+.pinned-swipes-menu .swipe-checkbox {
+    appearance: none; /* Сбрасываем нативный вид чекбокса */
+    -webkit-appearance: none; /* Для Webkit-браузеров */
+    position: relative;
+    height: 18px;
+    width: 18px;
+    background: #23272a; /* Серый фоновый цвет */
+    border: 2px solid #4f545c; /* Граница серого цвета */
+    border-radius: 4px; /* Слегка скруглённые углы */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Анимация изменения */
+}
+   .pinned-swipes-menu .swipe-container .mes_text {
+       padding-right: 8px; /* Добавляем отступ справа */
+       max-width: calc(100% - 20px); /* Учитываем ширину скроллбара */
+       overflow-wrap: break-word; /* Перенос слов для длинного текста */
+   }
+
+.pinned-swipes-menu .swipe-checkbox:checked {
+    background-color: #2ecc71; /* Цвет для активного чекбокса */
+    border-color: #2ecc71; /* Сделаем границу зелёной */
+}
+
+.order-indicator {
+    background-color: #7289da;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    margin-left: 10px;
+}
+
+/* Стили для скроллбаров в редакторе промпта */
+.pinned-swipes-menu textarea {
+    scrollbar-width: thin;
+    scrollbar-color: #202225 #2c2f33; /* Цвет ползунка и фона */
+}
+
+.pinned-swipes-menu textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+.pinned-swipes-menu textarea::-webkit-scrollbar-track {
+    background: #2c2f33;
+}
+
+.pinned-swipes-menu textarea::-webkit-scrollbar-thumb {
+    background-color: #202225;
+    border-radius: 4px;
+    border: 2px solid #2c2f33;
+}
+
+.swipe-container-removing {
+    animation: fadeOutSwipe 0.5s ease forwards;
+}
+
+@keyframes fadeOutSwipe {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        height: auto;
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+        height: 0;
+        margin: 0; /* Убираем зазоры */
+        padding: 0;
+        overflow: hidden; /* Скрываем содержимое */
+    }
+}
+
+/* Общий стиль для всех кнопок меню */
+.menu-button {
+    display: inline-block; /* Выставляем кнопки в одну строку */
+    padding: 8px 16px; /* Уменьшаем размер кнопок */
+    background-color: #4f545c; /* Серый фон */
+    color: #ffffff; /* Белый текст */
+    font-size: 14px; /* Размер текста кнопок */
+    border: none; /* Убираем стандартные границы */
+    border-radius: 4px; /* Слегка скругляем края */
+    cursor: pointer; /* Показываем указатель при наведении */
+    transition: background-color 0.3s ease; /* Анимация при наведении */
+    margin: 5px; /* Небольшой отступ между кнопками */
+}
+
+.menu-button:hover {
+    background-color: #7289da; /* Синий фон при наведении */
+}
+
+/* Контейнер для кнопок */
+.buttons-container {
+    display: flex; /* Группируем кнопки в строку */
+    justify-content: space-between; /* Равномерно распределяем их по ширине */
+    align-items: center; /* Выравниваем кнопки по вертикали */
+    margin-top: 15px; /* Отступ от верхнего контента */
+    padding-top: 10px; /* Добавляем отступ сверху внутри контейнера */
+    border-top: 1px solid #23272a; /* Разделительная линия над кнопками */
+}
