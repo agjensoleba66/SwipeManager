@@ -609,13 +609,21 @@ function addButtonsToInterface() {
     const pinButton = document.createElement('div');
     pinButton.className = 'mes_button mes_pin fa-solid fa-thumbtack interactable';
     pinButton.title = 'Pin current swipe';
-    pinButton.onclick = () => pinCurrentSwipe(pinButton);
+    pinButton.tabIndex = 0; // Добавляем возможность фокусировки кнопки
+
+    // Привязываем событие клика к функции pinCurrentSwipe
+    pinButton.addEventListener('click', (event) => {
+        pinCurrentSwipe(event.target);
+    });
 
     // Создаём кнопку "Show pinned swipes"
     const menuButton = document.createElement('div');
     menuButton.className = 'mes_button mes_pinned_menu fa-solid fa-list interactable';
     menuButton.title = 'Show pinned swipes';
-    menuButton.onclick = showPinnedSwipesMenu;
+    menuButton.tabIndex = 0; // Добавляем возможность фокусировки кнопки
+
+    // Привязываем событие клика к функции showPinnedSwipesMenu
+    menuButton.addEventListener('click', showPinnedSwipesMenu);
 
     // Добавляем кнопки в контейнер
     extraButtonsContainer.appendChild(pinButton);
@@ -623,6 +631,7 @@ function addButtonsToInterface() {
 
     console.log('Кнопки успешно добавлены в интерфейс.');
 }
+
 
 // === Наблюдение за изменениями в DOM ===
 function observeInterfaceChanges() {
