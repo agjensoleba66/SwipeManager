@@ -596,6 +596,9 @@ function addButtonsToInterface() {
     const extraButtonsContainer = document.querySelector('.extraMesButtons');
     if (!extraButtonsContainer) return;
 
+    // Проверяем, не были ли кнопки уже добавлены
+    if (extraButtonsContainer.querySelector('.mes_pin')) return;
+
     const pinButton = document.createElement('div');
     pinButton.className = 'mes_button mes_pin fa-solid fa-thumbtack interactable';
     pinButton.title = 'Pin current swipe';
@@ -608,8 +611,25 @@ function addButtonsToInterface() {
 
     extraButtonsContainer.appendChild(pinButton);
     extraButtonsContainer.appendChild(menuButton);
+
+    console.log('Кнопки успешно добавлены в интерфейс.');
 }
 
-addButtonsToInterface();
+// === Наблюдение за изменениями в DOM ===
+function observeInterfaceChanges() {
+    const observer = new MutationObserver(() => {
+        const extraButtonsContainer = document.querySelector('.extraMesButtons');
+        if (extraButtonsContainer) {
+            addButtonsToInterface();
+        }
+    });
+
+    // Наблюдаем за изменениями в теле документа
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+
+// Запускаем наблюдатель
+observeInterfaceChanges();
+
 
 export { pinCurrentSwipe, showPinnedSwipesMenu, showNotification };
