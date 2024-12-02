@@ -594,21 +594,30 @@ window.showNotification = function(message, type = 'info') {
 // === Добавление кнопок в интерфейс ===
 function addButtonsToInterface() {
     const extraButtonsContainer = document.querySelector('.extraMesButtons');
-    if (!extraButtonsContainer) return;
+    if (!extraButtonsContainer) {
+        console.log('Контейнер .extraMesButtons не найден.');
+        return;
+    }
 
     // Проверяем, не были ли кнопки уже добавлены
-    if (extraButtonsContainer.querySelector('.mes_pin')) return;
+    if (extraButtonsContainer.querySelector('.mes_pin')) {
+        console.log('Кнопки уже добавлены.');
+        return;
+    }
 
+    // Создаём кнопку "Pin current swipe"
     const pinButton = document.createElement('div');
     pinButton.className = 'mes_button mes_pin fa-solid fa-thumbtack interactable';
     pinButton.title = 'Pin current swipe';
     pinButton.onclick = () => pinCurrentSwipe(pinButton);
 
+    // Создаём кнопку "Show pinned swipes"
     const menuButton = document.createElement('div');
     menuButton.className = 'mes_button mes_pinned_menu fa-solid fa-list interactable';
     menuButton.title = 'Show pinned swipes';
     menuButton.onclick = showPinnedSwipesMenu;
 
+    // Добавляем кнопки в контейнер
     extraButtonsContainer.appendChild(pinButton);
     extraButtonsContainer.appendChild(menuButton);
 
@@ -630,6 +639,7 @@ function observeInterfaceChanges() {
 
 // Запускаем наблюдатель
 observeInterfaceChanges();
+
 
 
 export { pinCurrentSwipe, showPinnedSwipesMenu, showNotification };
