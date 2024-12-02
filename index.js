@@ -645,6 +645,14 @@ function observeInterfaceChanges() {
     // Наблюдаем за изменениями в теле документа
     observer.observe(document.body, { childList: true, subtree: true });
 }
+// Привязываем функции к window, чтобы они были доступны глобально
+window.pinCurrentSwipe = pinCurrentSwipe;
+window.showPinnedSwipesMenu = showPinnedSwipesMenu;
+window.showNotification = showNotification;
+window.closePinnedSwipesMenu = closePinnedSwipesMenu;
+window.goToPinnedSwipe = goToPinnedSwipe;
+window.removePinnedSwipe = removePinnedSwipe;
+
 
 // Запускаем наблюдатель
 observeInterfaceChanges();
