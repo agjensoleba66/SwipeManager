@@ -7,6 +7,6 @@
     "css": "style.css",
     "author": "Agjonsoleba",
     "version": "1.0.0",
-    "homePage": "https://github.com/your/plugin",
-    "auto_update": true
+    "homePage": "https://github.com/agjensoleba66/SwipeManager",
+    "auto_update": false
 }
