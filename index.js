@@ -66,7 +66,7 @@ const handleOutsideClick = function(event) {
 
 
 // === 2. Всплывающее меню закреплённых свайпов ===
-showPinnedSwipesMenu = function() {
+const showPinnedSwipesMenu = function() {
     const lastMessage = chat[chat.length - 1];
     if (!lastMessage || !lastMessage.pinnedSwipes || lastMessage.pinnedSwipes.length === 0) {
         showNotification('Нет закреплённых свайпов.', 'info');
