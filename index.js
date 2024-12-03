@@ -3,7 +3,7 @@ import { chat, saveChatDebounced, addOneMessage } from '../../../../script.js';
 import { getContext } from '../../../extensions.js';
 
 // Retrieve application context, including chat logs and participant info.
-const context = getContext();
+const { getMessageFromTemplate, getThumbnailUrl, characters, this_chid } = SillyTavern.getContext();
 /**
  * Свайпы
  */
