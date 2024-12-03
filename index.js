@@ -163,7 +163,7 @@ const showPinnedSwipesMenu = function() {
         const swipeMessage = { ...lastMessage, mes: lastMessage.swipes[swipeId], swipe_id: swipeId };
 
         // Используем getMessageFromTemplate для создания jQuery-объекта
-        const renderedMessageJQuery = getMessageFromTemplate({
+        const renderedMessageJQuery = window.getMessageFromTemplate({
             mesId: swipeId,
             characterName: lastMessage.name,
             isUser: lastMessage.is_user,
@@ -649,7 +649,6 @@ window.showNotification = showNotification;
 window.closePinnedSwipesMenu = closePinnedSwipesMenu;
 window.goToPinnedSwipe = goToPinnedSwipe;
 window.removePinnedSwipe = removePinnedSwipe;
-window.getMessageFromTemplate = getMessageFromTemplate;
 
 // Запускаем наблюдатель
 observeInterfaceChanges();
