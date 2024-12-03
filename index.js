@@ -167,7 +167,7 @@ const showPinnedSwipesMenu = function() {
             mesId: swipeId,
             characterName: lastMessage.name,
             isUser: lastMessage.is_user,
-            avatarImg: getThumbnailUrl('avatar', characters[this_chid]?.avatar || 'default.png'),
+			const avatarImg = (window.getThumbnailUrl || getThumbnailUrl)('avatar', window.characters[window.this_chid]?.avatar || 'default.png');
             timestamp: lastMessage.swipe_info?.[swipeId]?.send_date || lastMessage.send_date,
             extra: lastMessage.extra,
             tokenCount: lastMessage.extra?.token_count ?? 0,
