@@ -162,16 +162,23 @@ const showPinnedSwipesMenu = function() {
         // Создаём swipeMessage для рендеринга
         const swipeMessage = { ...lastMessage, mes: lastMessage.swipes[swipeId], swipe_id: swipeId };
 
-        // Используем getMessageFromTemplate для создания jQuery-объекта
-        const renderedMessageJQuery = window.getMessageFromTemplate({
-            mesId: swipeId,
-            characterName: lastMessage.name,
-            isUser: lastMessage.is_user,
-			const avatarImg = (window.getThumbnailUrl || getThumbnailUrl)('avatar', window.characters[window.this_chid]?.avatar || 'default.png');
-            timestamp: lastMessage.swipe_info?.[swipeId]?.send_date || lastMessage.send_date,
-            extra: lastMessage.extra,
-            tokenCount: lastMessage.extra?.token_count ?? 0,
-        });
+		// Вычисляем avatarImg перед созданием объекта
+		const avatarImg = (window.getThumbnailUrl || getThumbnailUrl)(
+			'avatar',
+			window.characters[window.this_chid]?.avatar || 'default.png'
+		);
+
+		// Создаём объект с параметрами для getMessageFromTemplate
+		const renderedMessageJQuery = window.getMessageFromTemplate({
+			mesId: swipeId,
+			characterName: lastMessage.name,
+			isUser: lastMessage.is_user,
+			avatarImg: avatarImg, // Передаём вычисленное значение
+			timestamp: lastMessage.swipe_info?.[swipeId]?.send_date || lastMessage.send_date,
+			extra: lastMessage.extra,
+			tokenCount: lastMessage.extra?.token_count ?? 0,
+		});
+
 
         // Преобразуем jQuery-объект в DOM-узел
         const renderedMessage = renderedMessageJQuery[0];
