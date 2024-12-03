@@ -1,4 +1,4 @@
-import { chat, saveChatDebounced, addOneMessage, getMessageFromTemplate } from '../../../../script.js';
+import { chat, saveChatDebounced, addOneMessage } from '../../../../script.js';
 
 import { getContext } from '../../../extensions.js';
 
