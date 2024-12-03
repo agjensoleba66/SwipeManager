@@ -2,19 +2,16 @@ import { chat, saveChatDebounced, addOneMessage } from '../../../../script.js';
 import { getContext } from '../../../extensions.js';
 
 function waitForSillyTavernReady() {
-    if (
-        typeof SillyTavern !== 'undefined' &&
-        SillyTavern.getContext &&
-        SillyTavern.getContext().getMessageFromTemplate &&
-        SillyTavern.getContext().getThumbnailUrl &&
-        SillyTavern.getContext().characters &&
-        SillyTavern.getContext().this_chid !== undefined
-    ) {
-        initializeExtension();
-    } else {
-        console.log('Ожидание готовности SillyTavern...');
-        setTimeout(waitForSillyTavernReady, 100); // Проверяем каждые 100 мс
+    if (typeof SillyTavern !== 'undefined' && SillyTavern.getContext) {
+        const context = SillyTavern.getContext();
+        console.log('Контекст SillyTavern:', context);
+        if (context.getMessageFromTemplate && context.getThumbnailUrl && context.characters && context.this_chid !== undefined) {
+            initializeExtension();
+            return;
+        }
     }
+    console.log('Ожидание готовности SillyTavern...');
+    setTimeout(waitForSillyTavernReady, 100); // Проверяем каждые 100 мс
 }
 
 function initializeExtension() {
@@ -26,7 +23,7 @@ function initializeExtension() {
     };
 
     const getThumbnailUrl = context.getThumbnailUrl || function (type, file) {
-        console.error('getThumbnailUrl недоступна.');
+        console.warn('getThumbnailUrl недоступна. Используется заглушка.');
         return `/thumbnail?type=${type}&file=${encodeURIComponent(file)}`;
     };
 
@@ -59,9 +56,8 @@ function initializeExtension() {
     observeInterfaceChanges();
 }
 
-
-// Запускаем проверку готовности
 waitForSillyTavernReady();
+
 
 /**
  * Свайпы
@@ -708,13 +704,7 @@ function observeInterfaceChanges() {
     // Наблюдаем за изменениями в теле документа
     observer.observe(document.body, { childList: true, subtree: true });
 }
-// Привязываем функции к window, чтобы они были доступны глобально
-window.pinCurrentSwipe = pinCurrentSwipe;
-window.showPinnedSwipesMenu = showPinnedSwipesMenu;
-window.showNotification = showNotification;
-window.closePinnedSwipesMenu = closePinnedSwipesMenu;
-window.goToPinnedSwipe = goToPinnedSwipe;
-window.removePinnedSwipe = removePinnedSwipe;
+
 
 // Запускаем наблюдатель
 observeInterfaceChanges();
