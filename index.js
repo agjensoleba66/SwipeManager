@@ -1,9 +1,49 @@
 import { chat, saveChatDebounced, addOneMessage } from '../../../../script.js';
-
 import { getContext } from '../../../extensions.js';
 
-// Retrieve application context, including chat logs and participant info.
-const { getMessageFromTemplate, getThumbnailUrl, characters, this_chid } = SillyTavern.getContext();
+// Функция для инициализации расширения
+function initializeExtension() {
+    const { getMessageFromTemplate, getThumbnailUrl, characters, this_chid } = SillyTavern.getContext();
+
+    // Проверяем, что все необходимые данные доступны
+    if (!getMessageFromTemplate || !getThumbnailUrl || !characters || !this_chid) {
+        console.error('Не удалось получить необходимые данные из контекста.');
+        return;
+    }
+
+    console.log('Расширение успешно инициализировано.');
+
+    // Ваш код расширения здесь
+    window.getMessageFromTemplate = getMessageFromTemplate;
+    window.getThumbnailUrl = getThumbnailUrl;
+    window.characters = characters;
+    window.this_chid = this_chid;
+
+    // Привязываем функции к window
+    window.pinCurrentSwipe = pinCurrentSwipe;
+    window.showPinnedSwipesMenu = showPinnedSwipesMenu;
+    window.showNotification = showNotification;
+    window.closePinnedSwipesMenu = closePinnedSwipesMenu;
+    window.goToPinnedSwipe = goToPinnedSwipe;
+    window.removePinnedSwipe = removePinnedSwipe;
+
+    // Запускаем наблюдатель
+    observeInterfaceChanges();
+}
+
+// Проверяем готовность приложения
+function waitForSillyTavernReady() {
+    if (typeof SillyTavern !== 'undefined' && SillyTavern.getContext) {
+        initializeExtension();
+    } else {
+        console.log('Ожидание готовности SillyTavern...');
+        setTimeout(waitForSillyTavernReady, 100); // Проверяем каждые 100 мс
+    }
+}
+
+// Запускаем проверку готовности
+waitForSillyTavernReady();
+
 /**
  * Свайпы
  */
