@@ -1,25 +1,54 @@
 import { chat, saveChatDebounced, addOneMessage } from '../../../../script.js';
 import { getContext } from '../../../extensions.js';
 
-// Функция для инициализации расширения
-function initializeExtension() {
-    const { getMessageFromTemplate, getThumbnailUrl, characters, this_chid } = SillyTavern.getContext();
+function waitForSillyTavernReady() {
+    if (
+        typeof SillyTavern !== 'undefined' &&
+        SillyTavern.getContext &&
+        SillyTavern.getContext().getMessageFromTemplate &&
+        SillyTavern.getContext().getThumbnailUrl &&
+        SillyTavern.getContext().characters &&
+        SillyTavern.getContext().this_chid !== undefined
+    ) {
+        initializeExtension();
+    } else {
+        console.log('Ожидание готовности SillyTavern...');
+        setTimeout(waitForSillyTavernReady, 100); // Проверяем каждые 100 мс
+    }
+}
 
-    // Проверяем, что все необходимые данные доступны
-    if (!getMessageFromTemplate || !getThumbnailUrl || !characters || !this_chid) {
+function initializeExtension() {
+    const context = SillyTavern.getContext();
+
+    const getMessageFromTemplate = context.getMessageFromTemplate || function () {
+        console.error('getMessageFromTemplate недоступна.');
+        return () => {};
+    };
+
+    const getThumbnailUrl = context.getThumbnailUrl || function (type, file) {
+        console.error('getThumbnailUrl недоступна.');
+        return `/thumbnail?type=${type}&file=${encodeURIComponent(file)}`;
+    };
+
+    const characters = context.characters || {};
+    const this_chid = context.this_chid || null;
+
+    if (!getMessageFromTemplate || !getThumbnailUrl || !characters || this_chid === null) {
         console.error('Не удалось получить необходимые данные из контекста.');
         return;
     }
 
     console.log('Расширение успешно инициализировано.');
+    console.log('getMessageFromTemplate:', getMessageFromTemplate);
+    console.log('getThumbnailUrl:', getThumbnailUrl);
+    console.log('characters:', characters);
+    console.log('this_chid:', this_chid);
 
-    // Ваш код расширения здесь
     window.getMessageFromTemplate = getMessageFromTemplate;
     window.getThumbnailUrl = getThumbnailUrl;
     window.characters = characters;
     window.this_chid = this_chid;
 
-    // Привязываем функции к window
     window.pinCurrentSwipe = pinCurrentSwipe;
     window.showPinnedSwipesMenu = showPinnedSwipesMenu;
     window.showNotification = showNotification;
@@ -27,19 +56,9 @@ function initializeExtension() {
     window.goToPinnedSwipe = goToPinnedSwipe;
     window.removePinnedSwipe = removePinnedSwipe;
 
-    // Запускаем наблюдатель
     observeInterfaceChanges();
 }
 
-// Проверяем готовность приложения
-function waitForSillyTavernReady() {
-    if (typeof SillyTavern !== 'undefined' && SillyTavern.getContext) {
-        initializeExtension();
-    } else {
-        console.log('Ожидание готовности SillyTavern...');
-        setTimeout(waitForSillyTavernReady, 100); // Проверяем каждые 100 мс
-    }
-}
 
 // Запускаем проверку готовности
 waitForSillyTavernReady();
