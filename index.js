@@ -649,7 +649,7 @@ window.showNotification = showNotification;
 window.closePinnedSwipesMenu = closePinnedSwipesMenu;
 window.goToPinnedSwipe = goToPinnedSwipe;
 window.removePinnedSwipe = removePinnedSwipe;
-
+window.getMessageFromTemplate = getMessageFromTemplate;
 
 // Запускаем наблюдатель
 observeInterfaceChanges();
