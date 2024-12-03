@@ -1,5 +1,6 @@
-import { getContext } from "../../../extensions.js";
-import { eventSource, event_types } from "../../../../script.js";
+import { chat, saveChatDebounced, addOneMessage } from '../../../../script.js';
+import { getContext } from '../../../extensions.js';
+
 // Retrieve application context, including chat logs and participant info.
 const context = getContext();
 /**
